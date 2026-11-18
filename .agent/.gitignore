@@ -1,0 +1,33 @@
+*-dispatch.log
+task-events.log
+comms.jsonl
+reports/comms-before-repair-*.7z
+reports/diagnostic-ui-*.png
+reports/env-before-utf8-*
+reports/native-*.7z
+ws-bridge.token
+hphe-rest.token
+*.token
+logs/
+**/ingestion.state.json
+**/.ingestion-state.json
+**/.*-state.json
+**/watch-state.json
+**/.*-learn-state.json
+**/.beacon-offset-state.json.lock
+queue/
+agent-bridge/local-paths.json
+
+# ---- Secrets / runtime locaux — JAMAIS versionnes ----
+handoff/
+comms.json
+mail-accounts.json
+n8n-env.json
+
+# Artefacts générés au push — contiennent les creds réelles injectées.
+kaggle/push-tmp.ipynb
+kaggle-hunyuan3d/push-tmp.ipynb
+kaggle/tunnel.local.json
+kaggle-*/
+colab/
+creds-matrix/ creds-matrix.json
