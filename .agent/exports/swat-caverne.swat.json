@@ -1,0 +1,90 @@
+{
+  "format": "hephaistos-swat-schema@1",
+  "name": "swat-caverne",
+  "mode": "swat",
+  "graph": {
+    "version": 1,
+    "name": "swat-caverne",
+    "entrySessionId": "acp/devin-cli/ionian-helicopter",
+    "nodes": [
+      {
+        "sessionId": "acp/devin-cli/ionian-helicopter",
+        "role": "Orchestrateur-Caverne",
+        "task": "Cadre la mission caverne : precise l'objectif (digest, moderation, annonce), decompose en ordres bornes pour le Collecteur et le Redacteur, tranche GO/NO-GO sur le livrable final. Les workers disposent des outils MCP n8n-instance (execute_workflow SWAT - Telegram Hub) et cli-anything-telegram pour la caverne.",
+        "skills": [
+          "orchestrator"
+        ],
+        "mcps": [
+          "n8n-instance"
+        ],
+        "title": "daring-agent",
+        "position": {
+          "x": -374,
+          "y": -154
+        },
+        "provider": "devin-cli"
+      },
+      {
+        "sessionId": "chat-mvp0beacon",
+        "role": "Collecteur-Caverne",
+        "task": "Collecte les donnees reelles de la caverne via les outils n8n-instance (execute_workflow sur 'SWAT - Telegram Hub' avec {action:history|search|members|stats, chat:'caverne', targetChat:'caverne'}) ou cli-anything-telegram en secours. Rend les donnees brutes structurees, jamais d'invention.",
+        "skills": [],
+        "mcps": [
+          "cli-anything",
+          "n8n-instance",
+          "n8n-mcp"
+        ],
+        "title": "onyx-agent",
+        "position": {
+          "x": 0,
+          "y": -140
+        },
+        "provider": "nim2"
+      },
+      {
+        "sessionId": "chat-mvfj773t",
+        "role": "Redacteur-Caverne",
+        "task": "Produit le livrable demande (digest, compte-rendu, annonce) a partir des donnees du Collecteur : texte clair en francais, markdown Telegram, <=4096 chars. Si la mission exige une publication, envoyer via n8n-instance execute_workflow 'SWAT - Telegram Hub' {action:send, chat:'caverne', text:<livrable>}.",
+        "skills": [
+          "lint-and-validate"
+        ],
+        "mcps": [
+          "cli-anything",
+          "n8n-instance"
+        ],
+        "title": "xenial-agent",
+        "position": {
+          "x": 286,
+          "y": -154
+        },
+        "provider": "nim"
+      }
+    ],
+    "edges": [
+      {
+        "id": "e-orch-col",
+        "source": "acp/devin-cli/ionian-helicopter",
+        "target": "chat-mvp0beacon"
+      },
+      {
+        "id": "e-col-red",
+        "source": "chat-mvp0beacon",
+        "target": "chat-mvfj773t"
+      }
+    ]
+  },
+  "agents": [
+    {
+      "sessionId": "chat-mvp0beacon",
+      "providerId": "nim2",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "role": "Collecteur-Caverne"
+    },
+    {
+      "sessionId": "chat-mvfj773t",
+      "providerId": "nim2",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "role": "Redacteur-Caverne"
+    }
+  ]
+}
